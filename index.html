@@ -1062,9 +1062,115 @@ html>body{padding:0}</style>
 @media(max-width:1150px) and (min-width:721px){#rack3d-app .r-layout{grid-template-columns:220px minmax(0,1fr)}#rack3d-app .r-sidebar{grid-row:1/3}#rack3d-app .r-info{grid-column:2;border-left:0;border-top:1px solid var(--r-border)}#rack3d-app .r-info .r-breakdown{display:none}}
 @media(max-width:720px){body{padding:0!important}#rack3d-app .r-layout{display:block}#rack3d-app .r-sidebar{padding:12px;border-right:0;border-bottom:1px solid var(--r-border)}#rack3d-app .r-index-shell>summary{padding:0 4px}#rack3d-app .r-index-shell[open]>summary{padding-bottom:12px}#rack3d-app .r-index-shell[open] .r-index{max-height:330px;overflow-y:auto}#rack3d-app .r-node{min-height:40px}#rack3d-app .r-info{border-left:0;border-top:1px solid var(--r-border)}#rack3d-app .r-stage{height:480px}}
 </style>
-<header class="r-header"><div class="r-top"><div><div class="r-brand">LEAH LI / RACK EXPLORER</div><h1>GB300 NVL72 · 结构与成本</h1></div><div class="r-overall"><small>整柜研报基准 · 2026 年 5 月</small><span class="r-mono">≈ US$3.99M</span></div></div></header>
+<style>
+/* Hallmark · component: navigation and parameter bar · theme: existing rack palette
+ * states: default · hover · focus · active · disabled · loading · error · success
+ * pre-emit critique: P4 H5 E4 S5 R5 V4 */
+html,body{overflow-x:clip}
+#rack3d-app{--r-on-accent:light-dark(#fff,#18251a);--r-error:light-dark(#a32c25,#ffa49e);--r-font:Inter,"PingFang SC","Microsoft YaHei",sans-serif;--r-mono:"SFMono-Regular",Consolas,monospace;border-radius:0;border:0;max-width:none!important;font-family:var(--r-font)}
+#rack3d-app [hidden]{display:none!important}
+#rack3d-app .r-header{padding:0 24px}
+#rack3d-app .r-top{min-height:84px;gap:24px;flex-wrap:nowrap}
+#rack3d-app .r-identity{display:flex;align-items:center;gap:12px;flex-shrink:0}
+#rack3d-app .r-logo{display:grid;place-items:center;width:40px;height:40px;border-radius:8px;background:var(--r-accent);color:var(--r-on-accent);font-size:23px;font-weight:650}
+#rack3d-app .r-identity h1{font-size:20px;letter-spacing:0;font-weight:600}
+#rack3d-app .r-brand{margin:3px 0 0;font-size:10px;letter-spacing:1px}
+#rack3d-app .r-mainnav{display:flex;align-self:stretch;gap:24px;flex:1;margin-left:24px}
+#rack3d-app .r-mainnav button{border:0;border-bottom:3px solid transparent;border-radius:0;background:transparent;padding:0 2px;font-size:14px;color:var(--r-muted);white-space:nowrap}
+#rack3d-app .r-mainnav button[aria-selected=true]{border-bottom-color:var(--r-accent);color:var(--r-accent);font-weight:600}
+#rack3d-app .r-header-actions{display:flex;align-items:center;gap:14px;font-size:11px;color:var(--r-muted)}
+#rack3d-app .r-export{min-height:38px;white-space:nowrap}
+#rack3d-app .r-export-status{font-size:11px;color:var(--r-accent)}
+#rack3d-app .r-configbar{display:flex;align-items:center;gap:24px;flex-wrap:wrap;padding:20px 24px;background:var(--r-bg);border-bottom:1px solid var(--r-border)}
+#rack3d-app .r-configgroup{display:flex;align-items:center;gap:12px;min-width:0;font-size:12px}
+#rack3d-app .r-configlabel{white-space:nowrap;font-weight:600}
+#rack3d-app .r-segment{display:flex;border:1px solid var(--r-border);border-radius:5px;overflow:clip;background:var(--r-panel)}
+#rack3d-app .r-segment button{min-height:44px;padding:8px 15px;border:0;border-radius:0;border-right:1px solid var(--r-border);white-space:nowrap}
+#rack3d-app .r-segment button:last-child{border-right:0}
+#rack3d-app .r-segment button[aria-pressed=true]{background:var(--r-accent);color:var(--r-on-accent)}
+#rack3d-app .r-configvalue{padding:11px 14px;border:1px solid var(--r-border);border-radius:5px;background:var(--r-panel);white-space:nowrap}
+#rack3d-app .r-spec-toggle{margin-left:auto;border:0;background:transparent;white-space:nowrap;min-height:44px;color:var(--r-muted)}
+#rack3d-app .r-specs{padding:20px 24px;border-bottom:1px solid var(--r-border);background:var(--r-panel)}
+#rack3d-app .r-specs dl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin:0 0 14px}
+#rack3d-app .r-specs dt{font-size:11px;color:var(--r-muted)}
+#rack3d-app .r-specs dd{margin:4px 0 0;font-size:15px;font-weight:500}
+#rack3d-app .r-specs p{font-size:12px;color:var(--r-muted)}
+#rack3d-app .r-statusbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 24px;border-bottom:1px solid var(--r-border);background:var(--r-panel);font-size:11px;color:var(--r-muted)}
+#rack3d-app .r-current-context{color:var(--r-accent);font-weight:500}
+#rack3d-app .r-current-context::before{content:'●';font-size:9px;margin-right:8px}
+#rack3d-app .r-statusbar button{padding:3px 0;border:0;color:var(--r-accent);background:transparent;white-space:nowrap}
+#rack3d-app .r-workspace{min-height:620px}
+#rack3d-app .r-content{padding:28px 32px;background:var(--r-panel);min-height:620px}
+#rack3d-app .r-sectionhead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--r-border)}
+#rack3d-app .r-sectionhead h2{font-size:23px;font-weight:500}
+#rack3d-app .r-sectionhead p{font-size:12px;color:var(--r-muted);margin-top:5px}
+#rack3d-app .r-costheadline{font-family:var(--r-mono);font-size:27px;white-space:nowrap}
+#rack3d-app .r-costoverview{display:grid;grid-template-columns:250px minmax(0,1fr);gap:36px;margin-top:26px}
+#rack3d-app .r-costoverview h3{font-size:14px;margin-bottom:16px}
+#rack3d-app .r-rank{margin:13px 0}
+#rack3d-app .r-rank div{display:flex;justify-content:space-between;gap:8px;font-size:12px;margin-bottom:6px}
+#rack3d-app .r-rank-meter{height:5px;background:var(--r-bg)}
+#rack3d-app .r-rank-meter i{height:100%;display:block;background:var(--r-accent)}
+#rack3d-app .r-table-wrap{overflow-x:auto;min-width:0}
+#rack3d-app .r-value-table{width:100%;border-collapse:collapse;font-size:12px}
+#rack3d-app .r-value-table th,#rack3d-app .r-value-table td{text-align:left;padding:12px 8px;border-bottom:1px solid var(--r-border)}
+#rack3d-app .r-value-table th{color:var(--r-muted);font-weight:400;white-space:nowrap}
+#rack3d-app .r-value-table td:nth-child(2){white-space:nowrap;font-family:var(--r-mono)}
+#rack3d-app .r-value-table button{padding:0;min-height:32px;background:transparent;border:0;color:var(--r-accent);white-space:nowrap}
+#rack3d-app .r-value-table tfoot{font-weight:600}
+#rack3d-app .r-research-note{margin-top:24px;padding:16px 18px;background:var(--r-bg);border-left:3px solid var(--r-accent);color:var(--r-muted);font-size:12px;line-height:1.9}
+#rack3d-app .r-vendor-row{display:grid;grid-template-columns:180px minmax(0,1fr) 250px;gap:28px;padding:24px 0;border-bottom:1px solid var(--r-border)}
+#rack3d-app .r-vendor-row h3{font-size:21px;margin-bottom:4px}
+#rack3d-app .r-vendor-row p{font-size:12px;color:var(--r-muted);line-height:1.8}
+#rack3d-app .r-vendor-row small{display:block;margin-bottom:8px}
+#rack3d-app .r-vendor-links{display:flex;flex-wrap:wrap;gap:8px;align-content:start}
+#rack3d-app .r-vendor-links button{white-space:nowrap;min-height:36px}
+#rack3d-app .r-evidence-link{font-size:12px;display:inline-block;margin-top:12px;white-space:nowrap}
+#rack3d-app .r-library-tools{display:flex;gap:10px;margin:24px 0;flex-wrap:wrap}
+#rack3d-app .r-library-tools input,#rack3d-app .r-library-tools select{border:1px solid var(--r-border);border-radius:5px;padding:10px 12px;background:var(--r-panel);color:var(--r-text);min-height:44px;font:inherit;font-size:12px}
+#rack3d-app .r-library-tools input{flex:1;min-width:140px}
+#rack3d-app .r-source-row{display:grid;grid-template-columns:110px minmax(0,1fr) 130px;gap:24px;padding:22px 0;border-bottom:1px solid var(--r-border)}
+#rack3d-app .r-source-row h3{font-size:15px;margin-bottom:6px}
+#rack3d-app .r-source-row p{font-size:12px;color:var(--r-muted);line-height:1.8}
+#rack3d-app .r-source-kind{font-size:11px;color:var(--r-accent)}
+#rack3d-app .r-source-empty{padding:36px 0;font-size:13px;color:var(--r-muted)}
+#rack3d-app .r-purpose{padding:16px 0;border-bottom:1px solid var(--r-border)}
+#rack3d-app .r-purpose h3{font-size:12px;color:var(--r-accent);font-weight:600;margin-bottom:7px}
+#rack3d-app .r-purpose p{font-size:13px;line-height:1.85;color:var(--r-text)}
+#rack3d-app button:active{transform:translateY(1px)}
+#rack3d-app button:disabled{opacity:.55;cursor:not-allowed}
+#rack3d-app button[data-state=loading]{opacity:.7;cursor:progress}
+#rack3d-app button[data-state=error]{border-color:var(--r-error);color:var(--r-error)}
+#rack3d-app button[data-state=success]{border-color:var(--r-accent);color:var(--r-accent)}
+#rack3d-app :is(button,select,input,summary):focus-visible{outline:2px solid var(--r-accent);outline-offset:3px}
+@media(hover:hover){#rack3d-app .r-mainnav button:hover{background:var(--r-bg)}#rack3d-app .r-value-table tbody tr:hover{background:var(--r-soft)}}
+@media(max-width:1200px){#rack3d-app .r-top{flex-wrap:wrap;gap:0 20px;padding-top:15px}#rack3d-app .r-mainnav{order:3;flex-basis:100%;margin:10px 0 0;min-height:50px}#rack3d-app .r-header-actions{margin-left:auto}#rack3d-app .r-configbar{gap:14px 22px}}
+@media(max-width:720px){#rack3d-app .r-header{padding:0 14px}#rack3d-app .r-top{gap:12px}#rack3d-app .r-identity{gap:8px}#rack3d-app .r-identity h1{font-size:17px}#rack3d-app .r-logo{width:34px;height:34px;font-size:20px}#rack3d-app .r-brand{font-size:9px}#rack3d-app .r-header-actions{gap:0}#rack3d-app .r-checked-date{display:none}#rack3d-app .r-export{padding:6px 8px;font-size:11px}#rack3d-app .r-mainnav{gap:0;justify-content:space-between;margin:0;min-height:48px}#rack3d-app .r-mainnav button{font-size:12px;min-width:60px}#rack3d-app .r-configbar{padding:14px;gap:12px}#rack3d-app .r-configgroup{gap:8px;font-size:11px}#rack3d-app .r-configgroup.r-exploregroup{width:100%;flex-wrap:wrap}#rack3d-app .r-exploregroup .r-configlabel{width:100%}#rack3d-app .r-segment{width:100%}#rack3d-app .r-segment button{flex:1;padding:7px 4px;font-size:11px}#rack3d-app .r-configvalue{padding:8px;font-size:11px}#rack3d-app .r-spec-toggle{font-size:11px;padding:6px 0}#rack3d-app .r-statusbar{padding:10px 14px;font-size:10px}#rack3d-app .r-specs{padding:18px 14px}#rack3d-app .r-specs dl{grid-template-columns:repeat(2,minmax(0,1fr))}#rack3d-app .r-content{padding:24px 16px}#rack3d-app .r-sectionhead{display:block}#rack3d-app .r-costheadline{display:block;margin-top:15px;font-size:24px}#rack3d-app .r-costoverview{grid-template-columns:minmax(0,1fr);gap:20px}#rack3d-app .r-value-table .r-use-column{display:none}#rack3d-app .r-vendor-row{grid-template-columns:minmax(0,1fr);gap:14px}#rack3d-app .r-source-row{grid-template-columns:minmax(0,1fr);gap:8px}#rack3d-app .r-source-row a{margin-top:0}#rack3d-app .r-source-row h3{overflow-wrap:anywhere}}
+</style>
+<header class="r-header"><div class="r-top">
+<div class="r-identity"><span class="r-logo" aria-hidden="true">G</span><div><h1>GB300 机柜探索器</h1><div class="r-brand">LEAH LI · 从整柜到芯片与材料</div></div></div>
+<nav class="r-mainnav" role="tablist" aria-label="主导航">
+<button id="tab-structure" role="tab" aria-selected="true" aria-controls="panel-structure" data-page="structure">产品结构</button>
+<button id="tab-value" role="tab" aria-selected="false" aria-controls="panel-value" tabindex="-1" data-page="value">价值拆解</button>
+<button id="tab-vendors" role="tab" aria-selected="false" aria-controls="panel-vendors" tabindex="-1" data-page="vendors">厂商图谱</button>
+<button id="tab-sources" role="tab" aria-selected="false" aria-controls="panel-sources" tabindex="-1" data-page="sources">资料库</button>
+</nav><div class="r-header-actions"><span class="r-checked-date">资料整理 2026-10-09</span><button class="r-export">导出数据 ↗</button></div>
+</div></header>
+<div class="r-configbar" aria-label="机柜参数与探索范围">
+<div class="r-configgroup"><span class="r-configlabel">主机型</span><span class="r-configvalue">GB300 NVL72</span></div>
+<div class="r-configgroup r-exploregroup"><span class="r-configlabel">探索范围</span><div class="r-segment" aria-label="探索范围"><button data-scope="rack" aria-pressed="true">整柜</button><button data-scope="tray" aria-pressed="false">计算托盘</button><button data-scope="switch" aria-pressed="false">交换托盘</button><button data-scope="network" aria-pressed="false">网络光模块</button></div></div>
+<div class="r-configgroup"><span class="r-configlabel">计算规模</span><span class="r-configvalue">72 GPU · 36 CPU</span></div>
+<button class="r-spec-toggle" aria-expanded="false" aria-controls="rack-specs">集成参数 ⌄</button>
+</div>
+<section id="rack-specs" class="r-specs" aria-label="集成参数" hidden><dl><div><dt>计算托盘</dt><dd>18 个 / 柜</dd></div><div><dt>HPM 计算主板</dt><dd>36 块 / 柜</dd></div><div><dt>NVLink 交换托盘</dt><dd>9 个 / 柜</dd></div><div><dt>NVSwitch ASIC</dt><dd>18 颗 / 柜</dd></div><div><dt>单计算托盘</dt><dd>4 GPU + 2 CPU</dd></div><div><dt>单 HPM 主板</dt><dd>2 GPU + 1 CPU</dd></div><div><dt>柜内互连</dt><dd>NVLink 铜互连</dd></div><div><dt>结构口径</dt><dd>Lenovo OEM 参考</dd></div></dl><p>电源架、网络端口及柜外光模块数量取决于 OEM 配置与网络拓扑；模型中的供电排布为示意。<a href="https://lenovopress.lenovo.com/lp2357-lenovo-nvidia-gb300-nvl72-rack-scale-ai" target="_blank" rel="noopener">查看配置依据 ↗</a></p></section>
+<div class="r-statusbar"><span><span class="r-current-context">GB300 NVL72 · 整柜</span> <span class="r-context-detail">NVIDIA 平台 / Lenovo 结构参考</span></span><span><span class="r-export-status" role="status"></span><button data-open-page="vendors">厂商路线 ↗</button></span></div>
+<section id="panel-structure" class="r-workspace" role="tabpanel" aria-labelledby="tab-structure">
 <div class="r-layout"><aside class="r-sidebar" aria-label="部件索引"><details class="r-index-shell" open><summary>部件索引</summary><div class="r-index-note">逐层探索 · 数量以整柜为基准</div><nav class="r-index" aria-label="机柜组件层级"></nav></details></aside><section class="r-modelarea" aria-label="三维模型操作区"><nav class="r-path" aria-label="拆解路径"></nav><div class="r-stage"><div class="r-stage-title"></div><div class="r-stage-status">单击部件，进入内部</div><div class="r-loading" role="status">正在载入三维模型…</div><div class="r-hover" hidden></div><div class="r-callouts" aria-label="模型上的部件入口"></div></div><div class="r-controls"><label class="r-explode">分解 <input aria-label="分解程度" type="range" min="0" max="100" value="0"><output class="r-mono">0%</output></label><div class="r-camera"><button data-camera="left" aria-label="向左旋转模型">↶</button><button data-camera="right" aria-label="向右旋转模型">↷</button><button data-camera="in" aria-label="放大模型">＋</button><button data-camera="out" aria-label="缩小模型">－</button><button data-camera="home">归位</button></div></div><div class="r-help"><span>点击部件深入 · 拖动旋转 · 滚轮缩放</span><span>功能结构示意，非原厂 CAD</span></div><details class="r-access"><summary>部件列表 · 键盘导航</summary><div class="r-parts" aria-label="部件列表"></div></details></section><aside class="r-info" aria-live="polite"></aside></div>
 <details class="r-costs"><summary>查看完整成本表与估算口径 · 12 项合计 US$3,994,551</summary><table class="r-costtable"><thead><tr><th>报告项目</th><th>美元 / 柜</th><th>占比</th><th>可以怎样使用</th></tr></thead><tbody></tbody></table><div class="r-evidence">基准：国金证券 2026-05-23 报告，第 3–4 页，转引 Wccftech / 新浪及摩根士丹利研究。该表为转引估算，未经采购报价验证；GPU、内存、基板等按原表独立分类，不等同于可直接采购的完整模组。原表将部分板卡记为零，不能据此断言该组件不存在或免费。光模块的人民币商品样本独立列示，不加进此美元合计。<br><a href="https://pdf.dfcfw.com/pdf/H3_AP202605241822839616_1.pdf" target="_blank" rel="noopener">打开报告原表 ↗</a></div></details>
+</section>
+<section id="panel-value" class="r-content" role="tabpanel" aria-labelledby="tab-value" hidden><div class="r-sectionhead"><div><h2>一柜的价值，拆到每个类别</h2><p>GB300 NVL72 · 12 项研报成本基准 · 美元 / 柜</p></div><span class="r-costheadline">≈ US$3,994,551</span></div><div class="r-costoverview"><div><h3>成本占比</h3><div class="r-value-bars"></div></div><div class="r-table-wrap"><table class="r-value-table"><thead><tr><th>报告项目</th><th>美元 / 柜</th><th>占比</th><th class="r-use-column">计价口径</th></tr></thead><tbody></tbody><tfoot><tr><td>合计</td><td>3,994,551</td><td>100%</td><td class="r-use-column">不含另列光模块样本</td></tr></tfoot></table></div></div><div class="r-research-note">这是 2026 年 5 月转引研报的成本模型，不是当前整柜采购报价。点击项目名称可返回模型查看对应部件；GPU、内存、封装基板按原报告独立分类，不能与完整模组价格重复相加。800G 光模块的人民币商品样本独立列示。<br><a href="https://pdf.dfcfw.com/pdf/H3_AP202605241822839616_1.pdf" target="_blank" rel="noopener">查看报告原表（第 3–4 页）↗</a></div></section>
+<section id="panel-vendors" class="r-content" role="tabpanel" aria-labelledby="tab-vendors" hidden><div class="r-sectionhead"><div><h2>厂商图谱</h2><p>从平台、整柜集成到光模块样本；点击部件进入三维结构。</p></div><button data-open-page="sources">查看来源 ↗</button></div><div class="r-vendor-list"></div><div class="r-research-note">这里只标注公开资料支持的角色。FS 是价格参考商品来源，不表示它是该 Lenovo 机柜的已确认供应商；PCB、HBM、封装与液冷的具体供货份额未据此推断。</div></section>
+<section id="panel-sources" class="r-content" role="tabpanel" aria-labelledby="tab-sources" hidden><div class="r-sectionhead"><div><h2>资料库</h2><p>结构、成本和商品报价分别追溯；资料整理于 2026-10-09。</p></div><span class="r-source-count r-muted" role="status"></span></div><div class="r-library-tools"><input type="search" class="r-source-search" aria-label="搜索资料" placeholder="搜索资料、厂商或部件"><select class="r-source-filter" aria-label="资料类型"><option value="all">全部资料</option><option value="official">官方结构资料</option><option value="research">研报成本基准</option><option value="catalog">商品报价样本</option></select></div><div class="r-library-list"></div></section>
 <footer class="r-footer"><span>数量与结构：NVIDIA / Lenovo 文档 · 几何位置为示意</span><span>价格：研报基准 / 推算 / 商品报价分别标识</span></footer>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script>
@@ -1153,8 +1259,98 @@ function visitIndex(key){
  if(matchMedia('(max-width:720px)').matches)$('.r-index-shell').open=false;
 }
 
+const purposes={
+ rack:'可以把它看成一整柜协同工作的 AI 计算设备。计算托盘负责算，交换托盘负责让 GPU 交换数据，电源和液冷保证大家持续运行。',
+ tray:'像可以抽出来的计算抽屉，把主板、芯片和散热装在一起。每个托盘里的 4 颗 GPU 和 2 颗 CPU 共同承担一部分计算任务，也方便安装和维护。',
+ board:'这是计算部件的底座。它把 2 颗 GPU、1 颗 CPU 以及供电、内存等器件连接起来，让电和数据沿板上的线路到达各个部件。',
+ gpu:'负责同时做大量相似的计算，是训练和运行 AI 模型的主要算力来源。可以把它理解成一个有很多工位的计算车间。',
+ cpu:'像计算托盘里的调度员：运行系统、安排任务、整理数据，再把适合并行计算的工作交给 GPU。它自己也会处理通用计算。',
+ barepcb:'就是还没装上芯片的电路板。板内多层铜线路像道路，把电源和数据信号送到该去的地方；焊上芯片等元件后，才成为完整主板。',
+ switch:'像 GPU 之间的数据中转站。它把交换芯片、线路和接口装在一个托盘里，让整柜 GPU 能快速分享数据、一起完成大任务。',
+ asic:'这是交换托盘里负责转发数据的专用芯片。它决定 GPU 发出的数据往哪里走，减少大家互相等待的时间。',
+ switchpcb:'这是承载交换芯片和接口的裸电路板。它提供高速信号通路与供电连接，装上元件后才成为可工作的交换板。',
+ pcb:'机柜里的各类电路板，负责承载元件、分配电力和传递信号。计算板偏重连接 CPU 和 GPU，交换板偏重高速转发，小板承担接口或管理任务。',
+ network:'负责让这台机柜和其他机柜、存储设备交换数据。网卡处理收发，一些专用芯片还会分担网络和数据处理工作。',
+ memory:'给正在工作的芯片临时存放数据，像手边的工作台。GPU 旁的 HBM 提供很快的数据读取；CPU 内存供系统和程序使用，两者服务的对象不同。',
+ substrate:'位于芯片与主板之间，像一层精细的转接底座。它把芯片上很密的小连接点引到主板能连接的位置，同时提供支撑和供电通路。',
+ mlcc:'主板上的小型陶瓷电容，像电路旁的小缓冲水箱。芯片用电突然变化时，它帮助稳定附近电压，并过滤电气噪声。',
+ psu:'把输入电能转换为设备能使用的直流电，并配合板上的供电电路让芯片稳定工作。可以把它看成机柜的供电站。',
+ cooling:'把 GPU、CPU 等部件产生的热量带走。冷板贴近芯片吸热，冷却液通过管路循环，避免部件过热、降速。',
+ other:'铜缆和连接器像机柜内部的数据通道与接头，把不同托盘连接起来。这里还包含报告未展开的其他部件，因此不能把这项全部理解成铜缆。',
+ assembly:'机柜框架像骨架，固定托盘、电源和管路；组装集成负责把它们连接、安装并检查到一起，成为能够运行的整套设备。',
+ optic:'把设备里的电信号转成光信号，通过光纤传到远处，再把收到的光转回电信号。可以把它看成电路与光纤之间的翻译器。',
+ opticpcb:'光模块里面的小电路板，承载信号处理芯片和其他器件，并把它们与接口连接起来。它是模块的电气连接底座。',
+ dsp:'负责处理高速传输中的电信号，帮助补偿失真、恢复清楚的数据。可以把它理解成信号的整理员；具体功能取决于模块设计。',
+ optical:'这是光模块里真正发光和接收光的部分。发射端把数据变成光的变化，接收端把这些变化还原成电信号。'
+};
+const sourceLibrary=[
+ {kind:'official',label:'官方结构资料',name:'NVIDIA NVL72 参考架构 · 系统组件',url:'https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html',use:'GPU、Grace CPU、NVLink 与网络组件的平台关系。',limit:'NVIDIA 参考架构与 Lenovo OEM 配置分开使用。'},
+ {kind:'official',label:'官方结构资料',name:'Lenovo GB300 NVL72 产品指南',url:lenovo,use:'整柜、计算托盘、交换托盘及部件数量的结构依据。',limit:'电源、存储与网络可选项以具体订单配置为准。'},
+ {kind:'official',label:'官方结构资料',name:'NVIDIA NVL72 · 网络逻辑架构',url:'https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/network-logical-architecture.html',use:'柜外网络和光链路拓扑，用于理解网络接口层级。',limit:'光模块数量不能直接按 GPU 数量推算。'},
+ {kind:'research',label:'研报成本基准',name:'国金证券 · PCB 与整柜成本估算',url:report,use:'2026-05-23 报告第 3–4 页；整柜 US$3,994,551、PCB 类别 US$35,100。',limit:'转引估算，不是采购报价；部分项目未独立计价。'},
+ {kind:'catalog',label:'商品报价样本',name:'FS · InfiniBand 光模块与线缆方案',url:fs,use:'800G DR8 OSFP 人民币商品报价样本，用于独立参考。',limit:'不是 GB300 OEM 配套报价，兼容性和采购配置需另行对应。'}
+];
+const vendors=[
+ {name:'NVIDIA',role:'平台与核心芯片',text:'GB300 平台、B300 GPU、Grace CPU 与 NVLink 交换组件。',links:[['gpu','B300 GPU'],['cpu','Grace CPU'],['switch','NVLink 交换']],source:sourceLibrary[0].url,evidence:'官方平台资料'},
+ {name:'Lenovo',role:'OEM 整柜与系统集成',text:'本网站物理拆解的参考配置，涵盖计算托盘、主板、交换托盘与供电液冷。',links:[['rack','整柜'],['tray','计算托盘'],['board','HPM 主板'],['power','供电与液冷']],source:lenovo,evidence:'OEM 产品指南'},
+ {name:'FS',role:'光模块商品参考',text:'800G 光模块价格样本与连接方案；三维模块内部仅作功能示意。',links:[['optic','800G 光模块']],source:fs,evidence:'公开商品方案'}
+];
+let activePage='structure';
+function showPage(page){
+ if(!['structure','value','vendors','sources'].includes(page))return;
+ activePage=page;root.dataset.page=page;
+ root.querySelectorAll('[data-page]').forEach(b=>{const on=b.dataset.page===page;b.setAttribute('aria-selected',String(on));b.tabIndex=on?0:-1});
+ root.querySelectorAll('[role=tabpanel]').forEach(p=>p.hidden=p.id!=='panel-'+page);
+ if(page==='structure')requestAnimationFrame(()=>{if(window.rack3dEngine)window.rack3dEngine.resize()});
+}
+function openComponent(key){
+ showPage('structure');
+ requestAnimationFrame(()=>{if(window.rack3dEngine){visitIndex(key);$('.r-modelarea').focus({preventScroll:true})}else{$('.r-export-status').textContent='三维模型尚未就绪，请稍后重试。'}})
+}
+function updateContext(){
+ $('.r-current-context').textContent='GB300 NVL72 · '+(selected==='rack'?'整柜':D[selected].name);
+ const scope=S[view].path.includes('tray')?'tray':S[view].path.includes('network')?'network':view==='switch'?'switch':'rack';
+ root.querySelectorAll('[data-scope]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.scope===scope)));
+}
+$('.r-modelarea').tabIndex=-1;
+$('.r-value-table tbody').innerHTML=costs.map(([name,n,id,use])=>'<tr><td><button data-value-part="'+id+'">'+name+' ↗</button></td><td>'+n.toLocaleString('en-US')+'</td><td>'+(n/total*100).toFixed(2)+'%</td><td class="r-use-column">'+use+'</td></tr>').join('');
+$('.r-value-bars').innerHTML=costs.slice().sort((a,b)=>b[1]-a[1]).map(([name,n])=>'<div class="r-rank"><div><span>'+name+'</span><span>'+(n/total*100).toFixed(1)+'%</span></div><div class="r-rank-meter"><i style="width:'+n/total*100+'%"></i></div></div>').join('');
+$('.r-vendor-list').innerHTML=vendors.map(v=>'<article class="r-vendor-row"><div><h3>'+v.name+'</h3><small>'+v.role+'</small></div><div><p>'+v.text+'</p><a class="r-evidence-link" href="'+v.source+'" target="_blank" rel="noopener">'+v.evidence+' ↗</a></div><div class="r-vendor-links">'+v.links.map(([key,name])=>'<button data-component="'+key+'">'+name+' →</button>').join('')+'</div></article>').join('');
+function renderLibrary(){
+ const q=$('.r-source-search').value.trim().toLowerCase(),kind=$('.r-source-filter').value;
+ const found=sourceLibrary.filter(s=>(kind==='all'||s.kind===kind)&&[s.name,s.use,s.limit].join(' ').toLowerCase().includes(q));
+ $('.r-source-count').textContent=found.length+' / '+sourceLibrary.length+' 份资料';
+ $('.r-library-list').innerHTML=found.length?found.map(s=>'<article class="r-source-row"><span class="r-source-kind">'+s.label+'</span><div><h3>'+s.name+'</h3><p>'+s.use+'</p><p>使用边界：'+s.limit+'</p></div><a class="r-evidence-link" href="'+s.url+'" target="_blank" rel="noopener">打开原始资料 ↗</a></article>').join(''):'<div class="r-source-empty">没有匹配的资料。试试“PCB”“Lenovo”，或清空筛选。<br><button data-reset-sources>清空筛选</button></div>';
+}
+renderLibrary();$('.r-source-search').addEventListener('input',renderLibrary);$('.r-source-filter').addEventListener('change',renderLibrary);
+$('.r-mainnav').addEventListener('keydown',e=>{
+ const tabs=[...root.querySelectorAll('[data-page]')];let i=tabs.indexOf(document.activeElement);if(i<0)return;
+ if(e.key==='ArrowRight')i=(i+1)%tabs.length;else if(e.key==='ArrowLeft')i=(i-1+tabs.length)%tabs.length;else if(e.key==='Home')i=0;else if(e.key==='End')i=tabs.length-1;else return;
+ e.preventDefault();showPage(tabs[i].dataset.page);tabs[i].focus();
+});
+root.addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b)return;
+ if(b.dataset.page)showPage(b.dataset.page);
+ if(b.dataset.openPage)showPage(b.dataset.openPage);
+ if(b.dataset.scope)openComponent(b.dataset.scope);
+ if(b.dataset.component)openComponent(b.dataset.component);
+ if(b.dataset.valuePart){const key={gpu:'gpu',cpu:'cpu',asic:'asic',network:'network',memory:'hbm',cooling:'cooling',psu:'psu',pcb:'barepcb',substrate:'substrate',mlcc:'mlcc',other:'other',assembly:'assembly'}[b.dataset.valuePart];openComponent(key)}
+ if(b.classList.contains('r-spec-toggle')){const on=b.getAttribute('aria-expanded')!=='true';b.setAttribute('aria-expanded',String(on));$('#rack-specs').hidden=!on;b.textContent=on?'收起参数 ⌃':'集成参数 ⌄'}
+ if(b.hasAttribute('data-reset-sources')){$('.r-source-search').value='';$('.r-source-filter').value='all';renderLibrary();$('.r-source-search').focus()}
+ if(b.classList.contains('r-export')){
+  b.disabled=true;b.dataset.state='loading';
+  try{
+   const payload={project:'GB300 NVL72 Explorer',author:'Leah Li',updated:'2026-10-09',basis:'2026-05 转引研报估算，非采购报价；光模块样本单独计价',currency:'USD',rackTotal:total,costs:costs.map(([name,amount,part,note])=>({name,amount,part,note})),components:D,purposes,index:indexNodes,sources:sourceLibrary,vendors};
+   const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'})),a=document.createElement('a');
+   a.href=url;a.download='gb300-rack-data-2026-10-09.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),30000);
+   b.dataset.state='success';$('.r-export-status').textContent='导出已发起 · JSON ';
+  }catch(error){b.dataset.state='error';$('.r-export-status').textContent='导出失败，请重试。 '}
+  finally{b.disabled=false}
+ }
+});
+
 $('.r-costtable tbody').innerHTML=costs.map(([name,n,id,use])=>`<tr data-cost="${id}"><td><button data-part="${id}">${name}</button></td><td>${n.toLocaleString('en-US')}</td><td>${(n/total*100).toFixed(2)}%</td>${`<td>${use}</td>`}</tr>`).join('')+`<tr><td>合计</td><td>${total.toLocaleString('en-US')}</td><td>100%</td><td>光模块商品样本另列</td></tr>`;
-function info(id){selected=id;syncIndex();const d=D[id];$('.r-info').innerHTML=`<div class="r-kind">${d.type}</div><h2>${d.name}</h2><div class="r-quantity">${d.qty}</div><div class="r-pricebox"><div class="r-pricelabel">${d.currency?'公开报价参考':'参考成本'}</div><div class="r-price r-mono">${d.price===null?(d.currency?'随模块计价':'未单列'):(d.currency?'¥'+d.price.toLocaleString('en-US'):'≈ '+fmt(d.price))}</div><div class="r-unit">${d.unit}</div><div class="r-formula">${d.formula}</div></div>${d.bars?'<div class="r-breakdown">'+costs.slice().sort((a,b)=>b[1]-a[1]).slice(0,5).map(a=>`<div class="r-baritem"><div><span>${a[0]}</span><span class="r-mono">${(a[1]/total*100).toFixed(1)}%</span></div><div class="r-bar"><i style="width:${a[1]/total*100}%"></i></div></div>`).join('')+'</div>':''}<div class="r-note">${d.note}</div>${d.scene&&d.scene!==view?`<button class="r-open" data-scene="${d.scene}">拆开${d.name} →</button>`:''}<div class="r-source"><span class="r-muted">${d.src==='fs'?'商品报价样本 · 2026-10-09 检索':'转引研报 · 2026-05-23 · 估算口径'}</span><a target="_blank" rel="noopener" href="${d.src==='fs'?fs:report}">${d.src==='fs'?'FS 商品页面':'国金报告第 3–4 页'} ↗</a><a target="_blank" rel="noopener" href="${lenovo}">Lenovo 结构与数量依据 ↗</a></div>`;root.querySelectorAll('[data-part]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.part===id));if(window.rack3dEngine)window.rack3dEngine.highlight(id)}
+function info(id){selected=id;syncIndex();updateContext();const d=D[id];$('.r-info').innerHTML=`<div class="r-kind">${d.type}</div><h2>${d.name}</h2><div class="r-quantity">${d.qty}</div><div class="r-pricebox"><div class="r-pricelabel">${d.currency?'公开报价参考':'参考成本'}</div><div class="r-price r-mono">${d.price===null?(d.currency?'随模块计价':'未单列'):(d.currency?'¥'+d.price.toLocaleString('en-US'):'≈ '+fmt(d.price))}</div><div class="r-unit">${d.unit}</div><div class="r-formula">${d.formula}</div></div><section class="r-purpose" aria-label="部件作用"><h3>它是做什么的</h3><p>${purposes[id]}</p></section>${d.bars?'<div class="r-breakdown">'+costs.slice().sort((a,b)=>b[1]-a[1]).slice(0,5).map(a=>`<div class="r-baritem"><div><span>${a[0]}</span><span class="r-mono">${(a[1]/total*100).toFixed(1)}%</span></div><div class="r-bar"><i style="width:${a[1]/total*100}%"></i></div></div>`).join('')+'</div>':''}<div class="r-note">${d.note}</div>${d.scene&&d.scene!==view?`<button class="r-open" data-scene="${d.scene}">拆开${d.name} →</button>`:''}<div class="r-source"><span class="r-muted">${d.src==='fs'?'商品报价样本 · 2026-10-09 检索':'转引研报 · 2026-05-23 · 估算口径'}</span><a target="_blank" rel="noopener" href="${d.src==='fs'?fs:report}">${d.src==='fs'?'FS 商品页面':'国金报告第 3–4 页'} ↗</a><a target="_blank" rel="noopener" href="${lenovo}">Lenovo 结构与数量依据 ↗</a></div>`;root.querySelectorAll('[data-part]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.part===id));if(window.rack3dEngine)window.rack3dEngine.highlight(id)}
 function chrome(){
  const path=S[view].path;
  $('.r-path').innerHTML=(path.length>1?`<button class="r-back" data-scene="${path[path.length-2]}">← 返回</button>`:'')+path.map((s,i)=>`${i?'<span class="r-muted">/</span>':''}${i===path.length-1?`<span aria-current="page">${S[s].name}</span>`:`<button data-scene="${s}">${S[s].name}</button>`}`).join('');
@@ -1272,10 +1468,10 @@ function networkView(){
  for(const x of [.2,1.2]){const port=group(model,'optic');port.position.set(x,.25,.8);mesh(port,.75,.35,1.7,0,0,.35,'metal','optic',.8);mesh(port,.62,.3,.24,0,0,1.3,'blue','optic');mesh(port,.44,.19,.03,0,0,1.44,'chip','optic');movable(port,[0,.15,1])}
  label(model,'NETWORK',1.25,-.65,.3,-.95);return[9,.7,.6];
 }
-function fit(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();distance=baseDistance*Math.max(1,1/camera.aspect*.95);draw()}
+function fit(){const w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();distance=baseDistance*Math.max(1,1/camera.aspect*.95);draw()}
 function draw(){camera.position.set(target.x+distance*Math.sin(phi)*Math.sin(theta),target.y+distance*Math.cos(phi),target.z+distance*Math.sin(phi)*Math.cos(theta));camera.lookAt(target);camera.updateMatrixWorld();if(selectionBox)selectionBox.update();if(hoverBox)hoverBox.update();renderer.render(scene,camera);positionAnchors()}
 function highlight(id){if(selectionBox){scene.remove(selectionBox);selectionBox.geometry.dispose();selectionBox.material.dispose();selectionBox=null}const meshes=picks.filter(m=>m.userData.id===id);if(meshes.length){selectionBox=new T.BoxHelper(objectFor(meshes.includes(lastHitMesh)?lastHitMesh:meshes[0]),color('accent'));scene.add(selectionBox)}draw()}
-window.rack3dEngine={highlight};
+window.rack3dEngine={highlight,resize:fit};
 function explode(value){level=value;$('.r-explode input').value=value;$('.r-explode output').value=value+'%';for(const m of moving)m.g.position.copy(m.base).addScaledVector(m.offset,value/100);draw()}
 const raycaster=new T.Raycaster(),pointer=new T.Vector2();function hit(e){const r=renderer.domElement.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);raycaster.setFromCamera(pointer,camera);lastHitMesh=raycaster.intersectObjects(picks,false)[0]?.object||null;return lastHitMesh?.userData.id}
 const canvas=renderer.domElement;let downId=null,downMesh=null;
